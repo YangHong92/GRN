@@ -35,7 +35,7 @@ void generate_Network(){
 	
 }
 
-Individual combination(){
+Individual recombination(){
 	Individual c;
 	
 	//read parents from file
