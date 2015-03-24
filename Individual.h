@@ -41,7 +41,8 @@ class Individual
 		bool check_Steady();
 		bool check_Fitness();
 		double W[gen_Num][gen_Num];
-
+		void show_W();
+		
 	private:
 		
 		double S[iter_T][gen_Num];
