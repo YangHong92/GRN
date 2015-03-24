@@ -1,0 +1,58 @@
+#!/bin/csh
+#
+## Specify the Project account
+#PBS -A free
+ ## Name of job
+#PBS -N GRN_YH_TEST
+#
+# Connect the standard output and error streams:
+#PBS -j oe
+#
+##############################################################
+## IMPORTANT:  You need to change the following two comands ##
+##############################################################
+#
+# Choose the number of nodes & processors per node:
+#
+#PBS -l nodes=1:ppn=4
+#
+# Choose the time your code will need at most:
+#
+#PBS -l walltime=00:01:00
+#
+##############################################################
+##    Also set the following entries:                       ##
+##############################################################
+
+# Run dir:
+set RUNDIR = "/home/yh652/GRN"
+
+# Application name:the name of the file having main
+set RUNFILE = "main"
+
+##############################################################
+##     Below this nothing should have to be changed !!!     ##
+##############################################################
+
+echo Running on host `hostname`
+echo Changing to $RUNDIR
+cd $RUNDIR
+echo Time is `date`
+echo This jobs runs on the following processors:
+echo `cat $PBS_NODEFILE`
+
+echo Create a mchine file for MPICH
+cat $PBS_NODEFILE > machine.test
+
+# Define number of processors
+set NPROCS=`wc -l < $PBS_NODEFILE`
+
+# Load modules on slave processors
+module load mpich/ge/gcc maui torque
+
+echo "Will run command: mpirun -np $NPROCS -machinefile machine.test $RUNFILE"
+echo "Starting job..."
+# Run the parallel MPI executable $RUNFILE
+time mpirun  -np $NPROCS -machinefile machine.test ./$RUNFILE 
+rm -rf machine.test
+
