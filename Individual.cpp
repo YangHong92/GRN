@@ -38,14 +38,6 @@ void Individual::init_W(){
 			W[i][j] = x;
 		}
 	}
-
-	cout<<"before mutation: "<<endl;
-	for( int i = 0; i < gen_Num; i++){
-		for(int j=0; j < gen_Num; j++){
-			cout<<j<<": W["<<i<<"]["<<j<<"]:"<<W[i][j]<<endl;
-		}
-	}
-
 	s_rand = rand(); 
 
 }
@@ -101,19 +93,12 @@ void Individual::mutation(){
 		W[tmp[i]/gen_Num][tmp[i]%gen_Num] = x;
 	}
 
-	cout<<"after mutation: "<<endl;
-	for( int i = 0; i < gen_Num; i++){
-		for(int j=0; j < gen_Num; j++){
-			cout<<j<<": W["<<i<<"]["<<j<<"]:"<<W[i][j]<<endl;
-		}
-	}
-
 }
 
 void Individual::development(){
 
 	for(int t = 1; t < iter_T; t++){
-		cout<<"generation "<<t<<" : "<<endl;
+		//cout<<"generation "<<t<<" : "<<endl;
 		for(int i = 0; i < gen_Num; i++){
 			double SUM = 0;
 			for (int j = 0; j < gen_Num; j++){
@@ -152,15 +137,15 @@ bool Individual::check_Steady(){
 
 	for (int t = iter_T - avg_T; t < iter_T; t++){	
 		D[t] = cal_D(S[t],avg_S);
-		cout<<"D["<<t<<"] is :"<<D[t]<<endl;
+		//cout<<"D["<<t<<"] is :"<<D[t]<<endl;
 	}
 
 	double SUM = 0;
 	for (int t = iter_T - avg_T; t < iter_T; t++){
 		SUM = SUM + D[t];
-		cout<<"SUM_D is :"<<SUM<<endl;
 	}
-
+	
+	cout<<"SUM_D is :"<<SUM<<endl;
 	if ( SUM <= stability )
 	{
 		Steady = true;
@@ -186,3 +171,12 @@ bool Individual::check_Fitness(){
 	cout<<"the survive is :"<<Survive<<endl;
 	return Survive;
 }
+
+void Individual::show_W(){
+	
+	for( int i = 0; i < gen_Num; i++){
+		for(int j=0; j < gen_Num; j++){
+			cout<<j<<": W["<<i<<"]["<<j<<"]:"<<W[i][j]<<endl;
+		}
+	}
+}	
