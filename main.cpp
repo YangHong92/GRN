@@ -84,15 +84,25 @@ int main() {
 
 	//generate first generation
 	Individual father = generate_parents();
+	father.show_W();
 	cout<<"above is father"<<endl;
+	
 	Individual mother = generate_parents();
+	mother.show_W();
 	cout<<"above is mother"<<endl;
 
 	//generate offspring
-	Individual ind = recombination(father,mother);
+	Individual ind;
+	ind = recombination(father,mother);
+	
+	//individual mutate
+	cout<<"before individual mutation: "<<endl;
+	ind.show_W();
+	ind.mutation();
+	cout<<"after individual mutation: "<<endl;
+	ind.show_W();
 
 	//individual develop 
-	ind.mutation();
 	ind.development();
 	bool steady = ind.check_Steady();
 	if(steady == true){
