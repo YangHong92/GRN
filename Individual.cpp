@@ -39,7 +39,7 @@ void Individual::init_W(){
 		}
 	}
 
-	cout<<"before shuffle: "<<endl;
+	cout<<"before mutation: "<<endl;
 	for( int i = 0; i < gen_Num; i++){
 		for(int j=0; j < gen_Num; j++){
 			cout<<j<<": W["<<i<<"]["<<j<<"]:"<<W[i][j]<<endl;
@@ -92,10 +92,16 @@ void Individual::mutation(){
 		cout<<"tmp[i]"<<tmp[i]<<endl;
 	}*/
 	for( int i = 0; i < gen_Num*gen_Num*(1-c); i++){
-		W[tmp[i]/gen_Num][tmp[i]%gen_Num] = 0;
+		double x,y,scope;
+			do{
+				x = rand() % ( upper_limit - lower_limit + 1 ) + lower_limit;
+				y = normal_Dis(x);
+				scope = rand() / (RAND_MAX+1) * normal_Dis(miu); 
+			}while ( scope > y );
+		W[tmp[i]/gen_Num][tmp[i]%gen_Num] = x;
 	}
 
-	cout<<"after shuffle: "<<endl;
+	cout<<"after mutation: "<<endl;
 	for( int i = 0; i < gen_Num; i++){
 		for(int j=0; j < gen_Num; j++){
 			cout<<j<<": W["<<i<<"]["<<j<<"]:"<<W[i][j]<<endl;
