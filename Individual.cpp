@@ -91,6 +91,7 @@ void Individual::mutation(){
 				scope = rand() / (RAND_MAX+1) * normal_Dis(miu); 
 			}while ( scope > y );
 		W[tmp[i]/gen_Num][tmp[i]%gen_Num] = x;
+		s_rand = rand();
 	}
 
 }
